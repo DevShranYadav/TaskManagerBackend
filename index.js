@@ -1,5 +1,6 @@
 const express=require('express');
 const Cors=require('cors');
+require('dotenv').config();
 const bodyParser=require('body-parser');
 const sequelize=require('./db/database-config');
 const task=require('./db/Models/task')
@@ -15,6 +16,8 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
+
+
 sequelize.authenticate().then(()=>{
     console.log("Database connected successfully");
 }).catch((error)=>{
@@ -22,10 +25,10 @@ sequelize.authenticate().then(()=>{
 })
 
 
-
-
 app.use(router);
-app.listen(5000,()=>{
-    console.log('Server is running on post 5000')
+
+const PORT= process.env.PORT || 5000
+app.listen(PORT,()=>{
+    console.log(`Server is running on post ${PORT}`)
 })
 
